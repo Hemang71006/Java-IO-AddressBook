@@ -214,4 +214,33 @@ class AddressBookManagerTest {
         assertSame(hemang, sorted.get(1));
         assertSame(ravi, sorted.get(2));
     }
+
+    @Test
+    void contactsShouldBeSortedByCity() {
+        AddressBookManager manager = new AddressBookManager();
+        AddressBook book = new AddressBook();
+
+        book.addContact(new Contact(
+                "Ravi", "Kumar", "Street 1", "Chennai",
+                "Tamil Nadu", "600001", "111", "ravi@example.com"
+        ));
+
+        book.addContact(new Contact(
+                "Asha", "Sharma", "Street 2", "Bengaluru",
+                "Karnataka", "560001", "222", "asha@example.com"
+        ));
+
+        manager.addAddressBook("Friends");
+        manager.getAddressBook("Friends").addContact(
+                book.getContacts().get(0)
+        );
+        manager.getAddressBook("Friends").addContact(
+                book.getContacts().get(1)
+        );
+
+        List<Contact> sorted = manager.sortByCity();
+
+        assertEquals("Bengaluru", sorted.get(0).getCity());
+        assertEquals("Chennai", sorted.get(1).getCity());
+    }
 }

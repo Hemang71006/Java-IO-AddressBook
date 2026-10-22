@@ -144,4 +144,54 @@ public class AddressBookManager {
         // Return the sorted list.
         return allContacts;
     }
+
+    // Collect contacts from every address book into one list.
+    private List<Contact> getAllContacts() {
+        List<Contact> allContacts = new ArrayList<>();
+
+        for (AddressBook addressBook : addressBooks.values()) {
+            allContacts.addAll(addressBook.getContacts());
+        }
+
+        return allContacts;
+    }
+
+    // Return contacts sorted by city (A-Z).
+    public List<Contact> sortByCity() {
+        List<Contact> sortedContacts = getAllContacts();
+
+        sortedContacts.sort(
+                Comparator.comparing(
+                        Contact::getCity,
+                        String.CASE_INSENSITIVE_ORDER
+                )
+        );
+
+        return sortedContacts;
+    }
+
+    // Return contacts sorted by state (A-Z).
+    public List<Contact> sortByState() {
+        List<Contact> sortedContacts = getAllContacts();
+
+        sortedContacts.sort(
+                Comparator.comparing(
+                        Contact::getState,
+                        String.CASE_INSENSITIVE_ORDER
+                )
+        );
+
+        return sortedContacts;
+    }
+
+    // Return contacts sorted by ZIP code (ascending).
+    public List<Contact> sortByZip() {
+        List<Contact> sortedContacts = getAllContacts();
+
+        sortedContacts.sort(
+                Comparator.comparing(Contact::getZip)
+        );
+
+        return sortedContacts;
+    }
 }
