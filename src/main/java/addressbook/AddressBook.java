@@ -7,9 +7,13 @@ import java.util.Iterator;
 public class AddressBook {
     private final List<Contact> contacts = new ArrayList<>();
 
-    // UC2 / UC5: Add a contact
-    public void addContact(Contact contact) {
+    public boolean addContact(Contact contact) {
+        if (isDuplicateContact(contact)) {
+            return false;
+        }
+
         contacts.add(contact);
+        return true;
     }
 
     // Return all contacts
@@ -55,5 +59,13 @@ public class AddressBook {
         }
 
         return false;
+    }
+
+    public boolean isDuplicateContact(Contact newContact) {
+        return contacts.stream().anyMatch(existingContact ->
+                existingContact.getFirstName().equalsIgnoreCase(
+                        newContact.getFirstName())
+                        && existingContact.getLastName().equalsIgnoreCase(
+                        newContact.getLastName()));
     }
 }

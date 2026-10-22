@@ -111,4 +111,48 @@ class AddressBookTest {
         assertEquals(1, addressBook.getContacts().size());
         assertSame(contact, addressBook.getContacts().get(0));
     }
+
+    @Test
+    void shouldRejectContactWithDuplicateName() {
+        AddressBook addressBook = new AddressBook();
+
+        Contact first = new Contact(
+                "Hemang", "Jeswani", "Kota",
+                "Kota", "Rajasthan", "324005",
+                "9876543210", "hemang@example.com"
+        );
+
+        Contact duplicate = new Contact(
+                "hemang", "JESWANI", "Another Address",
+                "Jaipur", "Rajasthan", "302001",
+                "9999999999", "other@example.com"
+        );
+
+        assertTrue(addressBook.addContact(first));
+        assertFalse(addressBook.addContact(duplicate));
+
+        assertEquals(1, addressBook.getContacts().size());
+    }
+
+    @Test
+    void shouldAllowContactsWithDifferentNames() {
+        AddressBook addressBook = new AddressBook();
+
+        Contact first = new Contact(
+                "Hemang", "Jeswani", "Kota",
+                "Kota", "Rajasthan", "324005",
+                "9876543210", "hemang@example.com"
+        );
+
+        Contact second = new Contact(
+                "Hemang", "Sharma", "Jaipur",
+                "Jaipur", "Rajasthan", "302001",
+                "9999999999", "sharma@example.com"
+        );
+
+        assertTrue(addressBook.addContact(first));
+        assertTrue(addressBook.addContact(second));
+
+        assertEquals(2, addressBook.getContacts().size());
+    }
 }

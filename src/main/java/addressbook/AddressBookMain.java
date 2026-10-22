@@ -15,7 +15,14 @@ public class AddressBookMain {
         do {
             System.out.println("\nEnter contact details:");
             Contact contact = readContact(scanner);
-            addressBook.addContact(contact);
+
+            boolean added = addressBook.addContact(contact);
+
+            if (added) {
+                System.out.println("Contact added successfully.");
+            } else {
+                System.out.println("A contact with this first and last name already exists.");
+            }
 
             System.out.print("Add another contact? (yes/no): ");
             choice = scanner.nextLine();
