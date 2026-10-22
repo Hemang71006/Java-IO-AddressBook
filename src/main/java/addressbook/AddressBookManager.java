@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Comparator;
 
 public class AddressBookManager {
     private final Map<String, AddressBook> addressBooks = new HashMap<>();
@@ -121,5 +122,26 @@ public class AddressBookManager {
 
         // Return the total number of matching contacts.
         return count;
+    }
+
+    // UC11: Collect contacts from every address book and sort them alphabetically.
+    public List<Contact> getContactsSortedAlphabetically() {
+        List<Contact> allContacts = new ArrayList<>();
+
+        // Collect contacts from each named address book.
+        for (AddressBook addressBook : addressBooks.values()) {
+            allContacts.addAll(addressBook.getContacts());
+        }
+
+        // Sort by first name; use last name to break ties.
+        allContacts.sort(
+                Comparator.comparing(Contact::getFirstName,
+                                String.CASE_INSENSITIVE_ORDER)
+                        .thenComparing(Contact::getLastName,
+                                String.CASE_INSENSITIVE_ORDER)
+        );
+
+        // Return the sorted list.
+        return allContacts;
     }
 }

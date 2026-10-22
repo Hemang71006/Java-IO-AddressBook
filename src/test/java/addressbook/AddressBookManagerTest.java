@@ -181,4 +181,37 @@ class AddressBookManagerTest {
 
         assertEquals(2, manager.countContactsByState("RAJASTHAN"));
     }
+
+    @Test
+    void shouldReturnContactsInAlphabeticalOrder() {
+        AddressBookManager manager = new AddressBookManager();
+        manager.addAddressBook("Family");
+        manager.addAddressBook("Work");
+
+        Contact ravi = new Contact(
+                "Ravi", "Kumar", "MI Road", "Jaipur",
+                "Rajasthan", "302001", "9876543211", "ravi@example.com"
+        );
+
+        Contact asha = new Contact(
+                "Asha", "Sharma", "MG Road", "Chennai",
+                "Tamil Nadu", "600001", "9876543210", "asha@example.com"
+        );
+
+        Contact hemang = new Contact(
+                "Hemang", "Jeswani", "Kota", "Kota",
+                "Rajasthan", "324005", "9876543212", "hemang@example.com"
+        );
+
+        manager.getAddressBook("Family").addContact(ravi);
+        manager.getAddressBook("Work").addContact(asha);
+        manager.getAddressBook("Family").addContact(hemang);
+
+        List<Contact> sorted = manager.getContactsSortedAlphabetically();
+
+        assertEquals(3, sorted.size());
+        assertSame(asha, sorted.get(0));
+        assertSame(hemang, sorted.get(1));
+        assertSame(ravi, sorted.get(2));
+    }
 }
