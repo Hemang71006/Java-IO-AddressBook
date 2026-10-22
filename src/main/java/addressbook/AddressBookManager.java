@@ -80,4 +80,46 @@ public class AddressBookManager {
         // Return all contacts found in that state.
         return matchingContacts;
     }
+
+    // UC10: Count contacts that belong to the specified city.
+    public long countContactsByCity(String city) {
+        long count = 0;
+
+        // Go through every address book managed by this manager.
+        for (AddressBook addressBook : addressBooks.values()) {
+
+            // Examine each contact in the current address book.
+            for (Contact contact : addressBook.getContacts()) {
+
+                // Count the contact if its city matches, ignoring case.
+                if (contact.getCity().equalsIgnoreCase(city)) {
+                    count++;
+                }
+            }
+        }
+
+        // Return the total number of matching contacts.
+        return count;
+    }
+
+    // UC10: Count contacts that belong to the specified state.
+    public long countContactsByState(String state) {
+        long count = 0;
+
+        // Go through every address book managed by this manager.
+        for (AddressBook addressBook : addressBooks.values()) {
+
+            // Examine each contact in the current address book.
+            for (Contact contact : addressBook.getContacts()) {
+
+                // Count the contact if its state matches, ignoring case.
+                if (contact.getState().equalsIgnoreCase(state)) {
+                    count++;
+                }
+            }
+        }
+
+        // Return the total number of matching contacts.
+        return count;
+    }
 }

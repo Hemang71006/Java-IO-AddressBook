@@ -125,4 +125,60 @@ class AddressBookManagerTest {
         assertTrue(results.contains(firstRajasthanContact));
         assertTrue(results.contains(secondRajasthanContact));
     }
+
+    @Test
+    void shouldCountContactsByCityAcrossAddressBooks() {
+        AddressBookManager manager = new AddressBookManager();
+        manager.addAddressBook("Family");
+        manager.addAddressBook("Work");
+
+        Contact chennaiContact1 = new Contact(
+                "Asha", "Sharma", "MG Road", "Chennai",
+                "Tamil Nadu", "600001", "9876543210", "asha@example.com"
+        );
+
+        Contact chennaiContact2 = new Contact(
+                "Ravi", "Kumar", "Anna Nagar", "Chennai",
+                "Tamil Nadu", "600002", "9876543211", "ravi@example.com"
+        );
+
+        Contact jaipurContact = new Contact(
+                "Neha", "Singh", "MI Road", "Jaipur",
+                "Rajasthan", "302001", "9876543212", "neha@example.com"
+        );
+
+        manager.getAddressBook("Family").addContact(chennaiContact1);
+        manager.getAddressBook("Work").addContact(chennaiContact2);
+        manager.getAddressBook("Work").addContact(jaipurContact);
+
+        assertEquals(2, manager.countContactsByCity("chennai"));
+    }
+
+    @Test
+    void shouldCountContactsByStateAcrossAddressBooks() {
+        AddressBookManager manager = new AddressBookManager();
+        manager.addAddressBook("Family");
+        manager.addAddressBook("Work");
+
+        Contact rajasthanContact1 = new Contact(
+                "Hemang", "Jeswani", "Kota", "Kota",
+                "Rajasthan", "324005", "9876543210", "hemang@example.com"
+        );
+
+        Contact rajasthanContact2 = new Contact(
+                "Ravi", "Kumar", "MI Road", "Jaipur",
+                "Rajasthan", "302001", "9876543211", "ravi@example.com"
+        );
+
+        Contact tamilNaduContact = new Contact(
+                "Asha", "Sharma", "MG Road", "Chennai",
+                "Tamil Nadu", "600001", "9876543212", "asha@example.com"
+        );
+
+        manager.getAddressBook("Family").addContact(rajasthanContact1);
+        manager.getAddressBook("Work").addContact(rajasthanContact2);
+        manager.getAddressBook("Work").addContact(tamilNaduContact);
+
+        assertEquals(2, manager.countContactsByState("RAJASTHAN"));
+    }
 }
