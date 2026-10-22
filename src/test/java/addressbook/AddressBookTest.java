@@ -17,7 +17,8 @@ class AddressBookTest {
         AddressBook addressBook = new AddressBook();
         addressBook.addContact(contact);
 
-        assertSame(contact, addressBook.getContact());
+        assertEquals(1, addressBook.getContacts().size());
+        assertSame(contact, addressBook.getContacts().get(0));
     }
 
     @Test
@@ -42,9 +43,12 @@ class AddressBookTest {
         );
 
         assertTrue(result);
-        assertEquals("New Address", addressBook.getContact().getAddress());
-        assertEquals("Jaipur", addressBook.getContact().getCity());
-        assertEquals("new@example.com", addressBook.getContact().getEmail());
+        assertEquals("New Address",
+                addressBook.getContacts().get(0).getAddress());
+        assertEquals("Jaipur",
+                addressBook.getContacts().get(0).getCity());
+        assertEquals("new@example.com",
+                addressBook.getContacts().get(0).getEmail());
     }
 
     @Test
@@ -69,7 +73,8 @@ class AddressBookTest {
         );
 
         assertFalse(result);
-        assertEquals("Kota", addressBook.getContact().getAddress());
+        assertEquals("Kota",
+                addressBook.getContacts().get(0).getAddress());
     }
 
     @Test
@@ -86,7 +91,7 @@ class AddressBookTest {
         boolean result = addressBook.deleteContact("Hemang", "Jeswani");
 
         assertTrue(result);
-        assertNull(addressBook.getContact());
+        assertTrue(addressBook.getContacts().isEmpty());
     }
 
     @Test
@@ -103,6 +108,7 @@ class AddressBookTest {
         boolean result = addressBook.deleteContact("Unknown", "Person");
 
         assertFalse(result);
-        assertSame(contact, addressBook.getContact());
+        assertEquals(1, addressBook.getContacts().size());
+        assertSame(contact, addressBook.getContacts().get(0));
     }
 }

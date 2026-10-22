@@ -9,10 +9,24 @@ public class AddressBookMain {
 
         System.out.println("Welcome to Address Book");
 
-        System.out.println("\nEnter contact details:");
-        Contact contact = readContact(scanner);
-        addressBook.addContact(contact);
+        // UC5: Add multiple contacts
+        String choice;
 
+        do {
+            System.out.println("\nEnter contact details:");
+            Contact contact = readContact(scanner);
+            addressBook.addContact(contact);
+
+            System.out.print("Add another contact? (yes/no): ");
+            choice = scanner.nextLine();
+        } while (choice.equalsIgnoreCase("yes"));
+
+        System.out.println("\nContacts in Address Book:");
+        for (Contact savedContact : addressBook.getContacts()) {
+            System.out.println(savedContact);
+        }
+
+        // UC3: Edit a contact
         System.out.print("\nEnter first name of contact to edit: ");
         String searchFirstName = scanner.nextLine();
 
@@ -28,14 +42,12 @@ public class AddressBookMain {
 
         if (edited) {
             System.out.println("\nContact updated successfully:");
-            System.out.println(addressBook.getContact());
         } else {
             System.out.println("\nContact not found.");
         }
 
-        System.out.println("\nEnter contact details to delete:");
-
-        System.out.print("Enter first name of contact to delete: ");
+        // UC4: Delete a contact
+        System.out.print("\nEnter first name of contact to delete: ");
         String deleteFirstName = scanner.nextLine();
 
         System.out.print("Enter last name of contact to delete: ");
@@ -51,7 +63,11 @@ public class AddressBookMain {
             System.out.println("\nContact not found.");
         }
 
-        System.out.println("Current contact: " + addressBook.getContact());
+        // Display remaining contacts
+        System.out.println("\nRemaining contacts:");
+        for (Contact savedContact : addressBook.getContacts()) {
+            System.out.println(savedContact);
+        }
 
         scanner.close();
     }
