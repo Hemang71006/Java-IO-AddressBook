@@ -31,4 +31,16 @@ public class AddressBook {
 
         return false;
     }
+
+    public boolean deleteContact(String firstName, String lastName) {
+        if (contact != null
+                && contact.getFirstName().equalsIgnoreCase(firstName)
+                && contact.getLastName().equalsIgnoreCase(lastName)) {
+
+            contact = null;
+            return true;
+        }
+
+        return false;
+    }
 }

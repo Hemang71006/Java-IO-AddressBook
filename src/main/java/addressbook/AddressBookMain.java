@@ -33,6 +33,26 @@ public class AddressBookMain {
             System.out.println("\nContact not found.");
         }
 
+        System.out.println("\nEnter contact details to delete:");
+
+        System.out.print("Enter first name of contact to delete: ");
+        String deleteFirstName = scanner.nextLine();
+
+        System.out.print("Enter last name of contact to delete: ");
+        String deleteLastName = scanner.nextLine();
+
+        boolean deleted = addressBook.deleteContact(
+                deleteFirstName, deleteLastName
+        );
+
+        if (deleted) {
+            System.out.println("\nContact deleted successfully.");
+        } else {
+            System.out.println("\nContact not found.");
+        }
+
+        System.out.println("Current contact: " + addressBook.getContact());
+
         scanner.close();
     }
 

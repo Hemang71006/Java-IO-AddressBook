@@ -71,4 +71,38 @@ class AddressBookTest {
         assertFalse(result);
         assertEquals("Kota", addressBook.getContact().getAddress());
     }
+
+    @Test
+    void shouldDeleteContactWhenNameMatches() {
+        Contact contact = new Contact(
+                "Hemang", "Jeswani", "Kota",
+                "Kota", "Rajasthan", "324005",
+                "9876543210", "hemang@example.com"
+        );
+
+        AddressBook addressBook = new AddressBook();
+        addressBook.addContact(contact);
+
+        boolean result = addressBook.deleteContact("Hemang", "Jeswani");
+
+        assertTrue(result);
+        assertNull(addressBook.getContact());
+    }
+
+    @Test
+    void shouldNotDeleteContactWhenNameDoesNotMatch() {
+        Contact contact = new Contact(
+                "Hemang", "Jeswani", "Kota",
+                "Kota", "Rajasthan", "324005",
+                "9876543210", "hemang@example.com"
+        );
+
+        AddressBook addressBook = new AddressBook();
+        addressBook.addContact(contact);
+
+        boolean result = addressBook.deleteContact("Unknown", "Person");
+
+        assertFalse(result);
+        assertSame(contact, addressBook.getContact());
+    }
 }
