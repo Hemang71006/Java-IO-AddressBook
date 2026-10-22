@@ -38,4 +38,46 @@ public class AddressBookManager {
 
         return matchingContacts;
     }
+
+    // UC9: Get all contacts from every address book that belong to the given city.
+    public List<Contact> getContactsByCity(String city) {
+        List<Contact> matchingContacts = new ArrayList<>();
+
+        // Visit each address book stored in the manager.
+        for (AddressBook addressBook : addressBooks.values()) {
+
+            // Check every contact in the current address book.
+            for (Contact contact : addressBook.getContacts()) {
+
+                // Compare city names without case sensitivity.
+                if (contact.getCity().equalsIgnoreCase(city)) {
+                    matchingContacts.add(contact);
+                }
+            }
+        }
+
+        // Return all contacts found in that city.
+        return matchingContacts;
+    }
+
+    // UC9: Get all contacts from every address book that belong to the given state.
+    public List<Contact> getContactsByState(String state) {
+        List<Contact> matchingContacts = new ArrayList<>();
+
+        // Visit each address book stored in the manager.
+        for (AddressBook addressBook : addressBooks.values()) {
+
+            // Check every contact in the current address book.
+            for (Contact contact : addressBook.getContacts()) {
+
+                // Compare state names without case sensitivity.
+                if (contact.getState().equalsIgnoreCase(state)) {
+                    matchingContacts.add(contact);
+                }
+            }
+        }
+
+        // Return all contacts found in that state.
+        return matchingContacts;
+    }
 }
