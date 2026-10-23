@@ -76,12 +76,14 @@ Java-IO-AddressBook/
     │           ├── AddressBookMain.java
     │           ├── Contact.java
     │           ├── AddressBook.java
+    │           ├── AddressBookManager.java
     │           └── AddressBookFileIO.java
     └── test/
         └── java/
             └── addressbook/
                 ├── ContactTest.java
                 ├── AddressBookTest.java
+                ├── AddressBookManagerTest.java
                 └── AddressBookFileIOTest.java
 ```
 
